@@ -66,7 +66,7 @@ function getRandomInt(min, max) {
 const chnageQuestion = () => {
   questionKind = getRandomInt(1, 3);
   console.log(questionKind);
-  questionNumber = getRandomInt(0, 11);
+  questionNumber = getRandomInt(0, 10);
   return questionBox[questionKind][questionNumber];
 };
 
