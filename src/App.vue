@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import topImg from "./assets/monster1.jpg";
+import topImg from "./assets/topimg.png";
 import monsterImg1 from "./assets/monster1.jpg";
 import monsterImg2 from "./assets/monster2.jpg";
 import monsterImg3 from "./assets/monster3.jpg";
@@ -10,7 +10,7 @@ import monsterImg6 from "./assets/monster6.jpg";
 
 // 変数へ初期値を代入
 const questionBox = [
-  ["スタート"],
+  ["スタートボタンを押してください"],
   [
     "社内の人間関係は良好である",
     "集中して仕事に取り組める環境が整っている",
@@ -27,7 +27,7 @@ const questionBox = [
     "職場に関わりたくない人がいる",
     "上司とうまくコミュニケーションが取れない",
     "給料がもっと欲しいと感じる",
-    "正直ボーナスが少ない",
+    "他の人と比べてボーナスが少ない",
     "もっとやりがいのある仕事がしたい",
     "誰でもできる仕事をやっている気がする",
     "なんとなく将来が不安だ",
@@ -41,11 +41,13 @@ let questionKind = 1;
 let monsterNumber = 6;
 const playerLife = ref("");
 const monsterLife = ref("");
+const titleContent = ref("ランダムな質問に答えて転職モンスターを倒そう");
 const quesitonContent = ref(questionBox[0][0]);
 const selectBtn = ref(false);
 const startBtn = ref(true);
 const retryBtn = ref(false);
 const lifeBox = ref(false);
+const titleBox = ref(true);
 const charengeResultShow = ref(false);
 const keepResultShow = ref(false);
 const monsterShow1 = ref(false);
@@ -65,7 +67,6 @@ function getRandomInt(min, max) {
 // 質問をランダムで返す関数
 const chnageQuestion = () => {
   questionKind = getRandomInt(1, 3);
-  console.log(questionKind);
   questionNumber = getRandomInt(0, 10);
   return questionBox[questionKind][questionNumber];
 };
@@ -73,8 +74,89 @@ const chnageQuestion = () => {
 // スタートボタンを押した時の動作
 const startDiagnosis = () => {
   quesitonContent.value = chnageQuestion();
-  monsterNumber = getRandomInt(1, 6);
+  monsterNumber = getRandomInt(1, 7);
+  showMonster(monsterNumber);
   playerLife.value = 2;
+  startBtn.value = !startBtn.value;
+  selectBtn.value = !selectBtn.value;
+  titleBox.value = !titleBox.value;
+  document.getElementById("playerLifeId").style.color = "black";
+  document.getElementById("playerLifeId").style.fontWeight = "normal";
+  document.getElementById("monsterLifeId").style.color = "black";
+  document.getElementById("monsterLifeId").style.fontWeight = "normal";
+  lifeBox.value = !lifeBox.value;
+};
+
+// リトライボタンを押した時の操作
+const retryDiagnosis = () => {
+  quesitonContent.value = questionBox[0][0];
+  titleContent.value = "ランダムな質問に答えて転職モンスターを倒そう";
+  document.getElementById("titleContentId").style.color = "black";
+  document.getElementById("titleContentId").style.fontWeight = "normal";
+  startBtn.value = !startBtn.value;
+  retryBtn.value = !retryBtn.value;
+  charengeResultShow.value = false;
+  keepResultShow.value = false;
+};
+
+// 結果を表示する
+const resultDiagnosis = (resultNumber) => {
+  selectBtn.value = !selectBtn.value;
+  retryBtn.value = !retryBtn.value;
+  titleBox.value = !titleBox.value;
+  lifeBox.value = !lifeBox.value;
+  showMonster(monsterNumber);
+  document.getElementById("titleContentId").style.color = "red";
+  document.getElementById("titleContentId").style.fontWeight = "bold";
+  if (resultNumber == 1) {
+    titleContent.value = "転職モンスターの勝ちです";
+    quesitonContent.value = "今すぐ転職して新しい一歩を踏み出そう";
+    charengeResultShow.value = !charengeResultShow.value;
+  } else {
+    titleContent.value = "あなたの勝ちです";
+    quesitonContent.value = "今の職場で楽しく仕事をしよう";
+    keepResultShow.value = !keepResultShow.value;
+  }
+};
+
+// はいかいいえを押した時の操作
+const nextQestion = (selectAnswer) => {
+  document.getElementById("playerLifeId").style.color = "black";
+  document.getElementById("playerLifeId").style.fontWeight = "normal";
+  document.getElementById("monsterLifeId").style.color = "black";
+  document.getElementById("monsterLifeId").style.fontWeight = "normal";
+  if (questionKind == 1) {
+    if (selectAnswer == "Yes") {
+      monsterLife.value = monsterLife.value - 1;
+      document.getElementById("monsterLifeId").style.color = "red";
+      document.getElementById("monsterLifeId").style.fontWeight = 900;
+    } else {
+      playerLife.value = playerLife.value - 1;
+      document.getElementById("playerLifeId").style.color = "red";
+      document.getElementById("playerLifeId").style.fontWeight = 900;
+    }
+  } else {
+    if (selectAnswer == "Yes") {
+      playerLife.value = playerLife.value - 1;
+      document.getElementById("playerLifeId").style.color = "red";
+      document.getElementById("playerLifeId").style.fontWeight = 900;
+    } else {
+      monsterLife.value = monsterLife.value - 1;
+      document.getElementById("monsterLifeId").style.color = "red";
+      document.getElementById("monsterLifeId").style.fontWeight = 900;
+    }
+  }
+  if (playerLife.value == 0) {
+    resultDiagnosis(1);
+  } else if (monsterLife.value == 0) {
+    resultDiagnosis(2);
+  } else {
+    quesitonContent.value = chnageQuestion();
+  }
+};
+
+// 該当の番号のモンスター画像の表示を切り替える関数（非表示にもする）
+const showMonster = (monsterNumber) => {
   switch (monsterNumber) {
     case 1:
       monsterLife.value = 3;
@@ -101,63 +183,6 @@ const startDiagnosis = () => {
       monsterShow6.value = !monsterShow6.value;
       break;
   }
-  startBtn.value = !startBtn.value;
-  selectBtn.value = !selectBtn.value;
-  lifeBox.value = !lifeBox.value;
-  console.log(monsterLife.value);
-};
-
-// リトライボタンを押した時の操作
-const retryDiagnosis = () => {
-  quesitonContent.value = questionBox[0][0];
-  lifeBox.value = !lifeBox.value;
-  startBtn.value = !startBtn.value;
-  retryBtn.value = !retryBtn.value;
-  monsterShow1.value = false;
-  monsterShow2.value = false;
-  monsterShow3.value = false;
-  monsterShow4.value = false;
-  monsterShow5.value = false;
-  monsterShow6.value = false;
-  charengeResultShow.value = false;
-  keepResultShow.value = false;
-};
-
-// 結果を表示する
-const resultDiagnosis = (resultNumber) => {
-  selectBtn.value = !selectBtn.value;
-  retryBtn.value = !retryBtn.value;
-  if (resultNumber == 1) {
-    quesitonContent.value = "あなたは今すぐ転職した方が良いです";
-    charengeResultShow.value = !charengeResultShow.value;
-  } else {
-    quesitonContent.value = "今の職場で楽しく仕事をしよう";
-    keepResultShow.value = !keepResultShow.value;
-  }
-};
-
-// はいかいいえを押した時の操作
-const nextQestion = (selectAnswer) => {
-  if (questionKind == 1) {
-    if (selectAnswer == "Yes") {
-      monsterLife.value = monsterLife.value - 1;
-    } else {
-      playerLife.value = playerLife.value - 1;
-    }
-  } else {
-    if (selectAnswer == "Yes") {
-      playerLife.value = playerLife.value - 1;
-    } else {
-      monsterLife.value = monsterLife.value - 1;
-    }
-  }
-  if (playerLife.value == 0) {
-    resultDiagnosis(1);
-  } else if (monsterLife.value == 0) {
-    resultDiagnosis(2);
-  } else {
-    quesitonContent.value = chnageQuestion();
-  }
 };
 </script>
 <template>
@@ -169,56 +194,81 @@ const nextQestion = (selectAnswer) => {
   <div class="container-fluid">
     <div class="mainbox row">
       <div class="col-12">
-        <h1>転職ダンジョン</h1>
         <!-- モンスター画像 -->
-        <div v-show="monsterShow1">
-          <img :src="monsterImg1" alt="モンスター画像1" class="monsterimg" />
-        </div>
-        <div v-show="monsterShow2">
-          <img :src="monsterImg2" alt="モンスター画像2" class="monsterimg" />
-        </div>
-        <div v-show="monsterShow3">
-          <img :src="monsterImg3" alt="モンスター画像3" class="monsterimg" />
-        </div>
-        <div v-show="monsterShow4">
-          <img :src="monsterImg4" alt="モンスター画像4" class="monsterimg" />
-        </div>
-        <div v-show="monsterShow5">
-          <img :src="monsterImg5" alt="モンスター画像5" class="monsterimgg" />
-        </div>
-        <div v-show="monsterShow6">
-          <img :src="monsterImg6" alt="モンスター画像6" class="monsterimgg" />
+        <div class="monsterimg">
+          <div v-show="monsterShow1">
+            <img :src="monsterImg1" alt="モンスター画像1" />
+          </div>
+          <div v-show="monsterShow2">
+            <img :src="monsterImg2" alt="モンスター画像2" />
+          </div>
+          <div v-show="monsterShow3">
+            <img :src="monsterImg3" alt="モンスター画像3" />
+          </div>
+          <div v-show="monsterShow4">
+            <img :src="monsterImg4" alt="モンスター画像4" />
+          </div>
+          <div v-show="monsterShow5">
+            <img :src="monsterImg5" alt="モンスター画像5" />
+          </div>
+          <div v-show="monsterShow6">
+            <img :src="monsterImg6" alt="モンスター画像6" />
+          </div>
         </div>
         <!-- 質問画面 -->
         <div v-show="lifeBox">
-          <p>モンスターのライフ</p>
-          <p>{{ monsterLife }}</p>
-          <p>プレイヤーのライフ</p>
-          <p>{{ playerLife }}</p>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 mt-3">
+              <p>モンスターのライフ</p>
+              <p id="monsterLifeId">{{ monsterLife }}</p>
+            </div>
+            <div class="col-md-4 mt-3">
+              <p>あなたのライフ</p>
+              <p id="playerLifeId">{{ playerLife }}</p>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
         </div>
-        <div class="quesitonbox flexbox">
+        <div v-show="titleBox" class="mt-3">
+          <h1 id="titleContentId">{{ titleContent }}</h1>
+        </div>
+        <div class="quesitonbox flexbox mt-5">
           <p>{{ quesitonContent }}</p>
         </div>
-        <div v-show="startBtn">
-          <button class="btn blue" @click="startDiagnosis">スタート</button>
-        </div>
-        <div v-show="selectBtn">
-          <button class="btn whiteblue" @click="nextQestion('Yes')">
-            はい
-          </button>
-          <button class="btn red" @click="nextQestion('No')">いいえ</button>
+        <div class="mt-3">
+          <div v-show="startBtn">
+            <button class="btn blue" @click="startDiagnosis">スタート</button>
+          </div>
+          <div v-show="selectBtn">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-4 mt-3">
+                <button class="btn whiteblue" @click="nextQestion('Yes')">
+                  はい
+                </button>
+              </div>
+              <div class="col-md-4 mt-3">
+                <button class="btn red" @click="nextQestion('No')">
+                  いいえ
+                </button>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
         </div>
         <!-- 結果表示画面 -->
         <div v-show="retryBtn">
-          <p>転職してみよう</p>
           <div v-show="charengeResultShow">
+            <p>↓↓転職にチャレンジしてみる↓↓</p>
             <a class="weblink" href="https://cpa.mynavi.jp/"
-              >転職にチャレンジしてみる</a
+              >転職チャレンジサイト</a
             >
           </div>
           <div v-show="keepResultShow">
+            <p>↓↓やっぱりチャレンジしてみたいと思ったら↓↓</p>
             <a class="weblink" href="https://doda.jp/engineer/"
-              >やっぱり転職にチャレンジしてみる</a
+              >転職チャレンジサイト</a
             >
           </div>
           <button class="btn red w-50" @click="retryDiagnosis">リトライ</button>
@@ -228,7 +278,6 @@ const nextQestion = (selectAnswer) => {
   </div>
   <footer class="footer mt-5 bg-light">転職応援クラブ</footer>
 </template>
-
 <style scoped>
 .flexbox {
   display: flex;
@@ -249,9 +298,7 @@ const nextQestion = (selectAnswer) => {
   padding: 0;
 }
 .quesitonbox {
-  height: 200px;
-  padding: 20px 30px;
-  margin: 2em 0;
+  height: 100px;
   background: #ffffee;
   box-shadow: 0px 0px 0px 5px #ffe00f;
   border: dashed 3px yellow;
@@ -264,10 +311,10 @@ const nextQestion = (selectAnswer) => {
 }
 .btn {
   /* スマホ用の時はwidth: 80%;にする */
-  padding: 10px 30px;
+  padding: 10px 20px;
   margin: 10px 0;
   font-size: 20px;
-  width: 70%;
+  width: 90%;
 }
 .blue {
   background-color: aqua;
@@ -287,6 +334,6 @@ const nextQestion = (selectAnswer) => {
 }
 .topimg {
   margin: 20px auto;
-  max-height: 100px;
+  max-height: 70px;
 }
 </style>
