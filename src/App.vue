@@ -278,7 +278,9 @@ const showMonster = (monsterNumber) => {
       </div>
     </div>
   </div>
-  <footer class="footer mt-5 bg-light">転職応援クラブ</footer>
+  <footer class="footer mt-5 bg-light">
+    <p>転職応援クラブ</p>
+  </footer>
 </template>
 <style scoped>
 .flexbox {
