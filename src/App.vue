@@ -233,12 +233,14 @@ const showMonster = (monsterNumber) => {
         <div v-show="titleBox" class="mt-3">
           <h1 id="titleContentId">{{ titleContent }}</h1>
         </div>
-        <div class="quesitonbox flexbox mt-5">
+        <div class="quesitonbox flexbox mt-3">
           <p>{{ quesitonContent }}</p>
         </div>
         <div class="mt-3">
           <div v-show="startBtn">
-            <button class="btn blue" @click="startDiagnosis">スタート</button>
+            <button class="startbtn blue" @click="startDiagnosis">
+              スタート
+            </button>
           </div>
           <div v-show="selectBtn">
             <div class="row">
@@ -271,7 +273,7 @@ const showMonster = (monsterNumber) => {
               >転職チャレンジサイト</a
             >
           </div>
-          <button class="btn red w-50" @click="retryDiagnosis">リトライ</button>
+          <button class="startbtn red" @click="retryDiagnosis">リトライ</button>
         </div>
       </div>
     </div>
@@ -310,11 +312,16 @@ const showMonster = (monsterNumber) => {
   padding: 0;
 }
 .btn {
-  /* スマホ用の時はwidth: 80%;にする */
   padding: 10px 20px;
   margin: 10px 0;
   font-size: 20px;
   width: 90%;
+}
+.startbtn {
+  padding: 10px 20px;
+  margin: 10px 0;
+  font-size: 20px;
+  width: 50%;
 }
 .blue {
   background-color: aqua;
@@ -328,6 +335,26 @@ const showMonster = (monsterNumber) => {
 .monsterimg {
   margin: 0 auto;
   width: 50%;
+}
+@media screen and (max-width: 639px) {
+  /*スマホ用のcssを記述*/
+  .monsterimg {
+    width: 100%;
+  }
+  .btn {
+    /* スマホ用の時はwidth: 80%;にする */
+    width: 70%;
+  }
+  .quesitonbox {
+    height: 70px;
+    font-size: 20px;
+  }
+  .startbtn {
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 20px;
+    width: 90%;
+  }
 }
 .weblink {
   font-size: 24px;
