@@ -186,6 +186,9 @@ const showMonster = (monsterNumber) => {
 };
 </script>
 <template>
+  <Head>
+    <title>テスト</title>
+  </Head>
   <header>
     <div class="">
       <img :src="topImg" alt="トップ画像" class="topimg" />
@@ -260,26 +263,58 @@ const showMonster = (monsterNumber) => {
           </div>
         </div>
         <!-- 結果表示画面 -->
-        <div v-show="retryBtn">
+        <div v-show="retryBtn" class="mt-5">
           <div v-show="charengeResultShow">
             <p>↓↓転職にチャレンジしてみる↓↓</p>
-            <a class="weblink" href="https://cpa.mynavi.jp/"
-              >転職チャレンジサイト</a
+            <a
+              href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+              rel="nofollow"
             >
+              <img
+                border="0"
+                width="468"
+                height="60"
+                alt=""
+                src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
+            /></a>
+            <img
+              border="0"
+              width="1"
+              height="1"
+              src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+              alt=""
+            />
           </div>
           <div v-show="keepResultShow">
-            <p>↓↓やっぱりチャレンジしてみたいと思ったら↓↓</p>
-            <a class="weblink" href="https://doda.jp/engineer/"
-              >転職チャレンジサイト</a
+            <p>↓↓やっぱりチャレンジしたいと思ったら↓↓</p>
+            <a
+              href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+              rel="nofollow"
             >
+              <img
+                border="0"
+                width="468"
+                height="60"
+                alt=""
+                src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
+            /></a>
+            <img
+              border="0"
+              width="1"
+              height="1"
+              src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+              alt=""
+            />
           </div>
-          <button class="startbtn red" @click="retryDiagnosis">リトライ</button>
+          <button class="startbtn red mt-5" @click="retryDiagnosis">
+            リトライ
+          </button>
         </div>
       </div>
     </div>
   </div>
   <footer class="footer mt-5 bg-light">
-    <p>転職応援クラブ</p>
+    <p>転職応援研究会</p>
   </footer>
 </template>
 <style scoped>
