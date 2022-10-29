@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import topImg from "./assets/topimg.png";
+import TheFooter from "./components/TheFooter.vue";
+import TheHeader from "./components/TheHeader.vue";
 import monsterImg1 from "./assets/monster1.jpg";
 import monsterImg2 from "./assets/monster2.jpg";
 import monsterImg3 from "./assets/monster3.jpg";
@@ -186,14 +187,10 @@ const showMonster = (monsterNumber) => {
 };
 </script>
 <template>
+  <TheHeader />
   <Head>
     <title>テスト</title>
   </Head>
-  <header>
-    <div class="">
-      <img :src="topImg" alt="トップ画像" class="topimg" />
-    </div>
-  </header>
   <div class="container-fluid">
     <div class="mainbox row">
       <div class="col-12">
@@ -266,45 +263,49 @@ const showMonster = (monsterNumber) => {
         <div v-show="retryBtn" class="mt-5">
           <div v-show="charengeResultShow">
             <p>↓↓転職にチャレンジしてみる↓↓</p>
-            <a
-              href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
-              rel="nofollow"
-            >
+            <div class="flexbox">
+              <a
+                href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+                rel="nofollow"
+              >
+                <img
+                  border="0"
+                  width="468"
+                  height="60"
+                  alt=""
+                  src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
+              /></a>
               <img
                 border="0"
-                width="468"
-                height="60"
+                width="1"
+                height="1"
+                src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
                 alt=""
-                src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
-            /></a>
-            <img
-              border="0"
-              width="1"
-              height="1"
-              src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
-              alt=""
-            />
+              />
+            </div>
           </div>
           <div v-show="keepResultShow">
             <p>↓↓やっぱりチャレンジしたいと思ったら↓↓</p>
-            <a
-              href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
-              rel="nofollow"
-            >
+            <div class="flexbox">
+              <a
+                href="https://px.a8.net/svt/ejp?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
+                rel="nofollow"
+              >
+                <img
+                  border="0"
+                  width="468"
+                  height="60"
+                  alt=""
+                  src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
+              /></a>
               <img
                 border="0"
-                width="468"
-                height="60"
+                width="1"
+                height="1"
+                src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
                 alt=""
-                src="https://www28.a8.net/svt/bgt?aid=221026182612&wid=001&eno=01&mid=s00000023932001004000&mc=1"
-            /></a>
-            <img
-              border="0"
-              width="1"
-              height="1"
-              src="https://www16.a8.net/0.gif?a8mat=3NLCW6+A4DB02+54NS+5Z6WX"
-              alt=""
-            />
+              />
+            </div>
           </div>
           <button class="startbtn red mt-5" @click="retryDiagnosis">
             リトライ
@@ -312,10 +313,8 @@ const showMonster = (monsterNumber) => {
         </div>
       </div>
     </div>
+    <TheFooter />
   </div>
-  <footer class="footer mt-5 bg-light">
-    <p>転職応援研究会</p>
-  </footer>
 </template>
 <style scoped>
 .flexbox {
@@ -395,9 +394,5 @@ const showMonster = (monsterNumber) => {
 }
 .weblink {
   font-size: 24px;
-}
-.topimg {
-  margin: 20px auto;
-  max-height: 70px;
 }
 </style>
