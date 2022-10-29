@@ -357,7 +357,7 @@ const showMonster = (monsterNumber) => {
   padding: 10px 20px;
   margin: 10px 0;
   font-size: 20px;
-  width: 50%;
+  width: 30%;
 }
 .blue {
   background-color: aqua;
